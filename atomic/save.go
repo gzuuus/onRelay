@@ -3,7 +3,7 @@ package atomic
 import (
 	"context"
 
-	"onRelay"
+	"github.com/gzuuus/onRelay"
 
 	"github.com/nbd-wtf/go-nostr"
 )

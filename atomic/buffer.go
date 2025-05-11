@@ -1,7 +1,7 @@
 package atomic
 
 import (
-	"onRelay"
+	"github.com/gzuuus/onRelay"
 	"sync/atomic"
 
 	"github.com/nbd-wtf/go-nostr"
