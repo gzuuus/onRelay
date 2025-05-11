@@ -3,7 +3,7 @@ package atomic
 import (
 	"context"
 
-	"onRely"
+	"onRelay"
 
 	"github.com/nbd-wtf/go-nostr"
 )
@@ -12,7 +12,7 @@ import (
 // If the buffer is full, it automatically overwrites the oldest event.
 func (cb *AtomicCircularBuffer) SaveEvent(ctx context.Context, evt *nostr.Event) error {
 	if evt == nil {
-		return onRely.ErrNilEvent
+		return onRelay.ErrNilEvent
 	}
 
 	head := cb.head.Load()

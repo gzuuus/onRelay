@@ -1,13 +1,13 @@
 package atomic
 
 import (
-	"onRely"
+	"onRelay"
 	"sync/atomic"
 
 	"github.com/nbd-wtf/go-nostr"
 )
 
-var _ onRely.Store = (*AtomicCircularBuffer)(nil)
+var _ onRelay.Store = (*AtomicCircularBuffer)(nil)
 
 // AtomicCircularBuffer is an optimized, lock-free, fixed-size circular buffer for storing Nostr events.
 type AtomicCircularBuffer struct {

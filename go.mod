@@ -1,4 +1,4 @@
-module onRely
+module onRelay
 
 go 1.24.1
 
