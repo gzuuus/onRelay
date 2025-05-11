@@ -59,3 +59,12 @@ func ToBoolStringEventFilter(f EventPolicy) func(context.Context, *nostr.Event) 
 		return false, ""
 	}
 }
+
+// ToRelyAdapter converts a core error-based event policy to the rely.Client signature format.
+// This is useful for frameworks that expect the func(rely.Client, *nostr.Event) error signature.
+func ToRelyAdapter(f EventPolicy) func(client any, event *nostr.Event) error {
+	return func(client any, event *nostr.Event) error {
+		ctx := context.Background()
+		return f(ctx, event)
+	}
+}
