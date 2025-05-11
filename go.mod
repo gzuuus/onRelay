@@ -1,4 +1,4 @@
-module onRelay
+module github.com/gzuuus/onRelay
 
 go 1.24.1
 
