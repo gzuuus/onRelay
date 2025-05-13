@@ -11,7 +11,7 @@ A framework-agnostic Go library providing plug and play event storage and adapta
 ## Installation
 
 ```bash
-go get -u github.com/gzuuus/onRelay
+go get github.com/gzuuus/onRelay
 ```
 
 ## Usage
@@ -54,6 +54,7 @@ rely.RejectEvent = append(rely.RejectEvent, policies.ToClientAdapter[rely.Client
 ```
 
 #### Example: Adapting QueryEvents for khatru
+> Notice that Khatru handles ephemeral events internally, meaning they will not be stored in the buffer, just relayed
 
 See [`examples/khatru.go`](./examples/khatru.go) for how to use the `QueryEventsToChan` adapter to make onRelay's storage compatible with khatru's channel-based API:
 
@@ -100,7 +101,6 @@ func ToCustomResponse(f policies.FilterPolicy) func(ctx, filter) CustomType {
 ## Design Philosophy
 
 - **Framework Agnostic**: Core logic is decoupled from framework-specific signatures
-- **Minimalist API**: Focused on essential functionality without unnecessary abstractions
 - **Composable Units**: Small, single-purpose functions that can be combined as needed
 - **Explicit Control**: Decide how to combine, sequence, or adapt policy evaluation
 
