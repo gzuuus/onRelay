@@ -64,26 +64,20 @@ import (
     "github.com/nbd-wtf/go-nostr"
 )
 
-// Adapter: converts slice-based to channel-based signature
-func QueryEventsToChan(queryFn func(ctx context.Context, filter nostr.Filter) ([]*nostr.Event, error)) func(ctx context.Context, filter nostr.Filter) (chan *nostr.Event, error) {
-    return func(ctx context.Context, filter nostr.Filter) (chan *nostr.Event, error) {
-        events, err := queryFn(ctx, filter)
-        ch := make(chan *nostr.Event, len(events))
-        if err != nil {
-            close(ch)
-            return ch, err
-        }
-        go func() {
-            defer close(ch)
-            for _, event := range events {
-                ch <- event
-            }
-        }()
-        return ch, nil
-    }
-}
-// Usage in main
-relay.QueryEvents = append(relay.QueryEvents, atomic.SliceToChanEvents(buffer.QueryEvents))
+// The QueryEventsToChan adapter is provided in the atomic package
+// It converts slice-based event queries to channel-based ones for frameworks like khatru
+
+// Usage with khatru:
+var buffer = atomic.NewAtomicCircularBuffer(1000)
+relay := khatru.NewRelay()
+
+// Store events in the buffer
+relay.StoreEvent = append(relay.StoreEvent, buffer.SaveEvent)
+
+// Use the adapter to convert QueryEvents to the channel-based signature khatru expects
+relay.QueryEvents = append(relay.QueryEvents, atomic.QueryEventsToChan(buffer.QueryEvents))
+
+// Full example available in examples/khatru.go
 ```
 
 For more, browse the [examples](./examples) folder.
